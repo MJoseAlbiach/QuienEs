@@ -13,10 +13,9 @@ let firstUserCharacterSelected, secondUserCharacterSelected;
 let isFirstUserPlaying = true;
 isGameOver=false;
 
-// El fondo de los personajes todavía no tiene color
+
 function showWelcomeOfFirstPlayerPopup() {
   document.addEventListener("DOMContentLoaded", () => {
-    /* isFirstUserPlaying=!isFirstUserPlaying; */
     changeColorsForEachPlayer();
       showPopup("first-player-popup", "close-first-player-popup");
   });
