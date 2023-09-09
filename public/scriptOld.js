@@ -1,11 +1,10 @@
 const allOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
 const firstPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
 const secondPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
-const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
+//const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
 const userSelectedCharacterImg = document.getElementById('user-selected-character-image');
 const userSelectedCharacterName = document.getElementById('selected-character-name');
 const allOfQuestions = document.getElementById("questions-container");
-const questionsBtn = document.getElementById("questions-btn");
 let allOfCharactersOfFirstUser = [];
 let allOfCharactersOfSecondUser = [];
 const allOfCharacters = [];
@@ -14,15 +13,6 @@ let firstUserCharacterSelected, secondUserCharacterSelected;
 let isFirstUserPlaying = true;
 isGameOver=false;
 
-function showPopup(popupId, closePopupButton) {
-    const popup = document.getElementById(popupId);
-    const closePopupButon = document.getElementById(closePopupButton);
-    popup.style.display = "flex";
-
-    closePopupButon.onclick = function () {
-    popup.style.display = "none";
-    };     
-}
 
 function showWelcomeOfFirstPlayerPopup() {
   document.addEventListener("DOMContentLoaded", () => {
@@ -79,7 +69,11 @@ function changeColorsForEachPlayer(){
   });
 }
 
-
+function showGameOverPopup() {    
+  showPopup("show-game-over-popup", "close-game-over-popup");  
+  const secondPlayerWelcomePopup = document.getElementById("game-over-popup");
+  changeColorsForEachPlayer();
+}
 
 function handleCharacterClick(event) {
   if (isGameOver) {
@@ -151,7 +145,15 @@ function handleSolutionButton(){
 
 }
 
+function showPopup(popupId, closePopupButton) {
+    const popup = document.getElementById(popupId);
+    const closePopupButon = document.getElementById(closePopupButton);
+    popup.style.display = "flex";
 
+    closePopupButon.onclick = function () {
+    popup.style.display = "none";
+    };     
+}
 
 function youAreTheWinner(){
   console.log("Has ganado");
@@ -234,24 +236,22 @@ function showButtonForNextPlayer() {
 function hideQuestionsAndShowNextPlayerButton() {
   const questionsContainer = document.getElementById("questions-container");
   questionsContainer.style.display = "none";
-  questionsBtn.style.display="none";
   showButtonForNextPlayer();
 }
 
 function showGameStartFirstPopup() {    
   showPopup("start-first-player-popup", "close-game-first-player-popup");  
   const startGameFirstPlayerPopup = document.getElementById("start-first-player-popup");
-/*     isFirstUserPlaying=true; */
+    isFirstUserPlaying=true;
   allOfcontainersOfCharacters.forEach((container) => {
-    changeToNextPlayer();
+    
     changeColorsForEachPlayer();
   });
 
   comparisonOfClassesToDiscardCharactersAccordingEachQuestion();
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.addEventListener("click", () => {
-    isFirstUserPlaying = !isFirstUserPlaying;
-    /* changeToNextPlayer(); */
+    changeToNextPlayer();
   });
   console.log("estoy en showGameStartFirstPopup, isGameOver: ", isGameOver, "isFirstUserPlaying: ", isFirstUserPlaying);  
   updateHiddenCharacter();
@@ -259,7 +259,7 @@ function showGameStartFirstPopup() {
 }
 
 function showAndHideQuestions() {
-  /* const questionsBtn = document.getElementById("questions-btn"); */
+  const questionsBtn = document.getElementById("questions-btn");
   const allOfQuestions = document.getElementById("questions-container");
   const questionButtons = document.querySelectorAll(".individual-question-btn");
 
@@ -286,12 +286,6 @@ function changeToNextPlayer() {
   nextParticipantBtn.style.display = "none";
   const questionsContainer = document.getElementById("questions-container");
   questionsContainer.style.display = "flex";
-}
-
-function showGameOverPopup() {    
-  showPopup("show-game-over-popup", "close-game-over-popup");  
-  const secondPlayerWelcomePopup = document.getElementById("game-over-popup");
-  changeColorsForEachPlayer();
 }
 
 
