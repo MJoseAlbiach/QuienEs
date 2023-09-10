@@ -53,7 +53,8 @@ body {
 }
 
 #right-side { 
-    grid-area: 1 / 2 / 3 / 3;   
+    grid-area: 1 / 2 / 3 / 3;  
+    align-items: start;    
 }
 
 #characters-selected-container{
@@ -63,7 +64,7 @@ body {
     flex-direction: column;
 }
 
-#your-selected-character-container, #your-selected-character-container-second-player-popup, #your-selected-character-container-first-player-popup {
+#your-selected-character-container {
     margin: 10px 0px;
     flex-direction: column;
     align-items: center;
@@ -177,6 +178,7 @@ body {
     animation: fade-in 3s forwards;
 }
 
+
 @keyframes fade-in {
     from {
         opacity: 0;
@@ -198,6 +200,21 @@ body {
     border: 2px solid rgba(0, 0, 0, 0.511);
     display:grid;
     align-self: start;
+    animation: slideIn 1s forwards;
+    opacity: 0;
+}
+
+/* Define la animación */
+@keyframes slideIn {
+    0% {
+        transform: translateY(20px); /* Desplaza hacia abajo */
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0); /* Sin desplazamiento */
+        opacity: 1;
+    }
+
 }
 
 .character {
@@ -213,6 +230,8 @@ body {
     
 .character-discarded {
     background-color: red;
+    /* filter: grayscale(100%);*/
+        opacity: 25%; 
 }
 
 .rosa { 
@@ -320,21 +339,25 @@ body {
 }
 
 .colorOfBackgroundsOfFirstPlayer{
-    background-color: #56be5c;
+    background-color: #2160249e;
 }
 
-/* #first-player-welcome-popup, #confirmation-first-player-welcome-popup, #start-game-first-player-popup{
+ #first-player-welcome-popup, #start-game-first-player-popup{
     background-color: #216024;
-} */
+} 
 
- /* #second-player-welcome-popup, #confirmation-second-player-welcome-popup{
-    background-color: #155d9c;   
-} */
+ #second-player-welcome-popup{
+    background-color: #1c5990;   
+} 
 
 .colorOfBackgroundsOfSecondPlayer{
-    background-color: #3094eb;
+    background-color: #1c5a90a4;
 }
 
+#game-over-popup{
+    background-color: #96372b;
+
+}
 
 .span-popup {
     color: white;

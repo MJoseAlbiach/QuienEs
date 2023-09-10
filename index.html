@@ -36,7 +36,7 @@
             </div>
             <div class="color-container active ana glasses brown-hair mouth-open earrings necklace">              
                 <img class="character" src="public/images/ana.png" alt="Dibujo tridimensional de Ana" title="Hola, soy Ana!">
-                <h4 class="highlighted-name">Rosa</h4>
+                <h4 class="highlighted-name">Ana</h4>
             </div>
             <div class="color-container active eva glasses blue-eyes">               
                 <img class="character" src="public/images/eva.png" alt="Dibujo tridimensional de Eva" title="Hola, soy Eva!">
@@ -107,37 +107,37 @@
                 <h4 class="highlighted-name">Luís</h4>
             </div>
           </div>
-        <div id="right-side" class="flex-container">
+        <div id="right-side">
             <img id="logo" src="public/images/girl.png" alt="Logotipo">
-            <span id="welcome-name">Hola ..</span>
             <div id="buttons-container">            
                 <div id="characters-selected-container">
                     <div id="your-selected-character-container" class="flex-container colorOfBackgroundsOfFirstPlayer">
                         <h4 class="highlighted-title">Tu elección</h4>
                         <div>
                             <img id="user-selected-character-image" class="character-selected" src="/public/images/girl.png" alt="Dibujo tridimensional de Rosa" title="Hola, soy Rosa!">
-                            <h4 id="selected-character-name" class="highlighted-name">Laura</h4>
+                            <h4 id="selected-character-name" class="highlighted-name">¿...?</h4>
                         </div>
                     </div>
                 <button id="questions-btn" class="buttons">Preguntas</button>
                 <button id="next-participant-btn" class="buttons">Siguiente participante</button> 
                 <div id="questions-container">
                     <h2>¿Tu personaje tiene...?</h2>
-                    <button class="male buttons individual-question-btn"><strong>Género masculino</strong>?</button>
+
                     <button class="glasses buttons individual-question-btn"><strong>Gafas</strong>?</button>
-                    <button class="moustache buttons individual-question-btn"><strong>Bigote</strong>?</button>
-                    <button class="hat buttons individual-question-btn"><strong>Sombrero</strong>?</button>
                     <button class="blue-eyes buttons individual-question-btn"><strong>Ojos azules</strong>?</button>
                     <button class="blonde-hair buttons individual-question-btn"><strong>Pelo rubio</strong>?</button>
                     <button class="black-hair buttons individual-question-btn"><strong>Pelo negro</strong>?</button>
                     <button class="brown-hair buttons individual-question-btn"><strong>Pelo castaño</strong>?</button>
-                    <button class="beard buttons individual-question-btn"><strong>Barba</strong>?</button>
-                    <button class="headscarf buttons individual-question-btn"><strong>Pañuelo en la cabeza</strong>?</button>
                     <button class="short-hair buttons individual-question-btn"><strong>Pelo corto</strong>?</button>
-                    <button class="earrings buttons individual-question-btn"><strong>Pendientes</strong>?</button>
-                    <button class="scarf buttons individual-question-btn"><strong>Fular</strong>?</button>
-                    <button class="necklace buttons individual-question-btn"><strong>Collar</strong>?</button>
+                    <button class="beard buttons individual-question-btn"><strong>Barba</strong>?</button>
+                    <button class="moustache buttons individual-question-btn"><strong>Bigote</strong>?</button>
                     <button class="mouth-open buttons individual-question-btn"><strong>Boca abierta</strong>?</button>
+                    <button class="headscarf buttons individual-question-btn"><strong>Pañuelo en la cabeza</strong>?</button>
+                    <button class="hat buttons individual-question-btn"><strong>Sombrero</strong>?</button>
+                    <button class="earrings buttons individual-question-btn"><strong>Pendientes</strong>?</button>
+                    <button class="necklace buttons individual-question-btn"><strong>Collar</strong>?</button>
+                    <button class="scarf buttons individual-question-btn"><strong>Fular</strong>?</button>
+                    <button class="male buttons individual-question-btn"><strong>Género masculino</strong>?</button>
                 </div>
                 <div id="hidden-character-container" class="flex-container">
                     <h4 class="highlighted-title">¿Quien es?</h4>
@@ -185,9 +185,8 @@
         <div class="popup" id="show-game-over-popup">
             <div id="game-over-popup" class="popup-content background-alternate-class">
                 <h2 class="mensaje-popup">PARTIDA TERMINADA!!</h2>               
-                <span class="span-popup"></span>
-                <img  id="close-game-over-popup" class="img-button-popup" src="public/images/botonInicioQiuienEsJugarBco.png" alt="Partida terminada!!! ">
-            </div>
+                <span class="span-popup">Has perdido...</span>
+           </div>
         </div>
     </div>   
 </body>

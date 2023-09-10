@@ -1,103 +1,64 @@
+
 const allOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
 const firstPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
 const secondPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
-//const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
-const userSelectedCharacterImg = document.getElementById('user-selected-character-image');
-const userSelectedCharacterName = document.getElementById('selected-character-name');
 const allOfQuestions = document.getElementById("questions-container");
+const selectedCharacterName = document.getElementById('selected-character-name');
 let allOfCharactersOfFirstUser = [];
 let allOfCharactersOfSecondUser = [];
-const allOfCharacters = [];
 let otherPlayerSelectedCharacterClasses = [];
 let firstUserCharacterSelected, secondUserCharacterSelected;
 let isFirstUserPlaying = true;
 isGameOver=false;
+let charactersSelected = 0; 
 
+function showPopup(popupId, closePopupButton) {
+  const popup = document.getElementById(popupId);
+  const closePopupButon = document.getElementById(closePopupButton);
+  popup.style.display = "flex";
 
-function showWelcomeOfFirstPlayerPopup() {
-  document.addEventListener("DOMContentLoaded", () => {
-    changeColorsForEachPlayer();
-      showPopup("first-player-popup", "close-first-player-popup");
-  });
-}
-showWelcomeOfFirstPlayerPopup();
-
-
-function getNamesAndStateOfCharactersForEachPlayer() {
-    allOfcontainersOfCharacters.forEach((container) => {
-    const allOfClassesOfCharacter = container.classList;
-    if (allOfClassesOfCharacter.length > 2) {
-      const characterInfo = [allOfClassesOfCharacter[1], allOfClassesOfCharacter[2]];     
-      allOfCharactersOfFirstUser.push(characterInfo);
-      allOfCharactersOfSecondUser.push(characterInfo);    
-    }
-  });
-  console.log("Personajes del primer usuario:", allOfCharactersOfFirstUser);
-  console.log("Personajes del segundo usuario:", allOfCharactersOfSecondUser);
-}
-
-
-function showWelcomeOfSecondPlayerPopup() {    
-  showPopup("second-player-popup", "close-second-player-popup");  
-  const closeSecondPlayerPopupButton = document.getElementById("close-second-player-popup"); 
-  closeSecondPlayerPopupButton.addEventListener("click", () => {
-   changeColorsForEachPlayer();
-  });
-
-}
-
-
-// Si descomento yourSelectedCharacterContainer Uncaught TypeError: yourSelectedCharacterContainer is null
-function changeColorsForEachPlayer(){
-  /* if (isFirstUserPlaying){
-    yourSelectedCharacterContainer.remove("colorOfBackgroundsOfFirstPlayer"); 
-    yourSelectedCharacterContainer.add("colorOfBackgroundsOfSecondPlayer");
-  }
-  if (!isFirstUserPlaying){
-    yourSelectedCharacterContainer.remove("colorOfBackgroundsOfSecondPlayer"); 
-    yourSelectedCharacterContainer.classList.add("colorOfBackgroundsOfFirstPlayer");
-  }  */
-  allOfcontainersOfCharacters.forEach((container) => {
-    if (isFirstUserPlaying){
-    container.classList.remove("colorOfBackgroundsOfSecondPlayer"); 
-      container.classList.add("colorOfBackgroundsOfFirstPlayer");
-    }
-    if (!isFirstUserPlaying){
-      container.classList.remove("colorOfBackgroundsOfFirstPlayer"); 
-      container.classList.add("colorOfBackgroundsOfSecondPlayer");     
-    }     
-  });
-}
-
-function showGameOverPopup() {    
-  showPopup("show-game-over-popup", "close-game-over-popup");  
-  const secondPlayerWelcomePopup = document.getElementById("game-over-popup");
-  changeColorsForEachPlayer();
+  closePopupButon.onclick = function () {
+  popup.style.display = "none";
+  };     
 }
 
 function handleCharacterClick(event) {
-  if (isGameOver) {
-    return;
-  }
   const clickedContainer = event.currentTarget;
   const allOfClassesOfCharacter = clickedContainer.classList;
 
-  if (allOfClassesOfCharacter.length > 2) {
-    if (isFirstUserPlaying) {
-      firstUserCharacterSelected = allOfClassesOfCharacter[2];
-      console.log("Personaje seleccionado por el primer usuario:", firstUserCharacterSelected);    
-      updateSelectedCharacter();
-      showWelcomeOfSecondPlayerPopup(); 
-    } 
+  if (isFirstUserPlaying) {
+    firstUserCharacterSelected = allOfClassesOfCharacter[2];
+    console.log("Personaje seleccionado por el primer usuario:", firstUserCharacterSelected);
+    updateSelectedCharacter();
+    showWelcomeOfSecondPlayerPopup();
+  } else {
+    secondUserCharacterSelected = allOfClassesOfCharacter[2];
+    console.log("Personaje seleccionado por el segundo usuario:", secondUserCharacterSelected);
+    updateSelectedCharacter();
+    showGameStartFirstPopup();
+  } 
+  isFirstUserPlaying = !isFirstUserPlaying;
+  charactersSelected++;
 
-    if (!isFirstUserPlaying) {
-      secondUserCharacterSelected = allOfClassesOfCharacter[2];
-      console.log("Personaje seleccionado por el segundo usuario:", secondUserCharacterSelected);
-      updateSelectedCharacter();
-       showGameStartFirstPopup();           
-    }       
-    isFirstUserPlaying =false; 
+  if (charactersSelected >= 2) {
+    allOfcontainersOfCharacters.forEach((container) => {
+      container.removeEventListener("click", handleCharacterClick);
+    });
   }
+}
+
+function updateSelectedCharacter() {
+  const selectedCharacterImg = document.getElementById('user-selected-character-image');
+  const selectedCharacterName = document.getElementById('selected-character-name');
+  const characterSelected = isFirstUserPlaying ? firstUserCharacterSelected : secondUserCharacterSelected;
+  if (!characterSelected) {
+    selectedCharacterImg.src = `public/images/girl.png`;
+      selectedCharacterName.textContent = "¿...?";   
+  }
+  if (characterSelected) {
+  selectedCharacterImg.src = `public/images/${characterSelected}.png`;
+  selectedCharacterName.textContent = characterSelected;
+}
 }
 
 function eventClicForAllOfCcharacters(){
@@ -106,19 +67,108 @@ function eventClicForAllOfCcharacters(){
   });
 }
 
-// falla porque no hay imágenes todavía
-function updateSelectedCharacter() { 
-  const selectedCharacterImg = document.getElementById('user-selected-character-image');
-  const selectedCharacterName = document.getElementById('selected-character-name'); 
+function changeColorsForEachPlayer() {
+  const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
 
-  if (isFirstUserPlaying && firstUserCharacterSelected) {
-      selectedCharacterImg.src = `public/images/${firstUserCharacterSelected}.png`;
-      selectedCharacterName.textContent = firstUserCharacterSelected;
-  }  
-  if (!isFirstUserPlaying && secondUserCharacterSelected) {
-      selectedCharacterImg.src = `public/images/${secondUserCharacterSelected}.png`;
-      selectedCharacterName.textContent = secondUserCharacterSelected;
+  if (isFirstUserPlaying) {
+    yourSelectedCharacterContainer.classList.remove("colorOfBackgroundsOfSecondPlayer"); 
+    yourSelectedCharacterContainer.classList.add("colorOfBackgroundsOfFirstPlayer");
   }
+  if (!isFirstUserPlaying) {
+    yourSelectedCharacterContainer.classList.remove("colorOfBackgroundsOfFirstPlayer"); 
+    yourSelectedCharacterContainer.classList.add("colorOfBackgroundsOfSecondPlayer");
+  } 
+
+  allOfcontainersOfCharacters.forEach((container) => {
+    if (isFirstUserPlaying) {
+      container.classList.remove("colorOfBackgroundsOfSecondPlayer"); 
+      container.classList.add("colorOfBackgroundsOfFirstPlayer");
+    }
+    if (!isFirstUserPlaying) {
+      container.classList.remove("colorOfBackgroundsOfFirstPlayer"); 
+      container.classList.add("colorOfBackgroundsOfSecondPlayer");
+    }
+  });
+}
+
+function getNamesAndStateOfCharactersForEachPlayer() {
+  allOfcontainersOfCharacters.forEach((container) => {
+    const allOfClassesOfCharacter = container.classList;
+    if (allOfClassesOfCharacter.length > 2) {
+      const characterInfo = [...allOfClassesOfCharacter];
+      allOfCharactersOfFirstUser.push(characterInfo);
+      allOfCharactersOfSecondUser.push(characterInfo);
+    }
+  });
+
+  console.log("Personajes del primer usuario: allOfCharactersOfFirstUser", allOfCharactersOfFirstUser);
+  console.log("Personajes del segundo usuario: allOfCharactersOfSecondUser", allOfCharactersOfSecondUser);
+  console.log("Personajes del primer usuario firstPlayerAllOfcontainersOfCharacters:", firstPlayerAllOfcontainersOfCharacters);
+  console.log("Personajes del segundo usuario secondPlayerAllOfcontainersOfCharacters:", secondPlayerAllOfcontainersOfCharacters);
+}
+
+
+function updateCharactersForEachPlayer() {
+  const targetCharacterList = isFirstUserPlaying ? allOfCharactersOfFirstUser : allOfCharactersOfSecondUser;
+
+  targetCharacterList.forEach((characterInfo) => {
+    allOfcontainersOfCharacters[containerIndex].classList.add(...characterInfo);
+  });
+}
+
+function showTheCharactersSavedByEachPlayer(playerCharacters) {
+  console.log("Personajes del jugador:", playerCharacters);
+}
+
+ const questionsBtn = document.getElementById("questions-btn");
+function showAndHideQuestions() {
+ 
+  const allOfQuestions = document.getElementById("questions-container");
+  const questionButtons = document.querySelectorAll(".individual-question-btn");
+
+  questionsBtn.addEventListener("click", () => {
+      if (allOfQuestions.style.display === "flex") {
+          questionButtons.forEach((button, index) => {
+              button.style.animationDelay = ""; 
+              button.style.animationPlayState = "reverse"; 
+          });
+          setTimeout(() => {
+              allOfQuestions.style.display = "none";
+          }, 800); 
+      }
+          allOfQuestions.style.display = "flex";          
+  });
+}
+
+function showWelcomeOfFirstPlayerPopup() {
+  document.addEventListener("DOMContentLoaded", () => {
+    changeColorsForEachPlayer();
+      showPopup("first-player-popup", "close-first-player-popup");
+  });
+}
+
+function showWelcomeOfSecondPlayerPopup() {
+  showPopup("second-player-popup", "close-second-player-popup");
+
+  const secondPlayerWelcomePopup = document.getElementById("second-player-popup");
+  const closeSecondPlayerPopupButton = document.getElementById("close-second-player-popup");
+
+  closeSecondPlayerPopupButton.addEventListener("click", () => {
+    changeColorsForEachPlayer();   
+    const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
+    yourSelectedCharacterContainer.classList.remove("colorOfBackgroundsOfFirstPlayer");
+    yourSelectedCharacterContainer.classList.add("colorOfBackgroundsOfSecondPlayer");
+
+    const selectedCharacterImg = document.getElementById('user-selected-character-image');
+    selectedCharacterImg.src = '/public/images/girl.png';
+    selectedCharacterName.textContent = '¿...?'; 
+  });
+}
+
+function showGameOverPopup() {    
+  showPopup("show-game-over-popup", "close-game-over-popup");  
+  const secondPlayerWelcomePopup = document.getElementById("game-over-popup");
+  changeColorsForEachPlayer();
 }
 
 function updateHiddenCharacter() {
@@ -134,26 +184,21 @@ function updateHiddenCharacter() {
   }
 }
 
-function handleSolutionButton(){  
+function handleSolutionButton() {
   const solutionBtn = document.getElementById("solution-btn");
   const hiddenCharacterContainer = document.getElementById("hidden-character-container");
+  const gameOverPopup = document.getElementById("show-game-over-popup");
+  const closeGameOverPopupBtn = document.getElementById("close-game-over-popup");
 
   solutionBtn.addEventListener("click", () => {
-    hiddenCharacterContainer.style.display = "flex"; 
+    hiddenCharacterContainer.style.display = "flex";
     solutionBtn.style.display = "none";
+    setTimeout(() => {
+      gameOverPopup.style.display = "block";
+    }, 2000);
   });
-
 }
 
-function showPopup(popupId, closePopupButton) {
-    const popup = document.getElementById(popupId);
-    const closePopupButon = document.getElementById(closePopupButton);
-    popup.style.display = "flex";
-
-    closePopupButon.onclick = function () {
-    popup.style.display = "none";
-    };     
-}
 
 function youAreTheWinner(){
   console.log("Has ganado");
@@ -176,40 +221,47 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
       let otherCharacterList;
 
       if (isFirstUserPlaying) {
-        targetCharacterList = allOfCharactersOfFirstUser;
-        otherCharacterList = allOfCharactersOfSecondUser;
-      } else {
-        targetCharacterList = allOfCharactersOfSecondUser;
-        otherCharacterList = allOfCharactersOfFirstUser;
+        targetCharacterList = Array.from(firstPlayerAllOfcontainersOfCharacters);
+        otherCharacterList = Array.from(secondPlayerAllOfcontainersOfCharacters);
+        console.error("esto es targetCharacterList:", targetCharacterList);       
+      } 
+      if (!isFirstUserPlaying) {      
+        targetCharacterList = Array.from(secondPlayerAllOfcontainersOfCharacters);
+        otherCharacterList = Array.from(firstPlayerAllOfcontainersOfCharacters);
+        console.error("esto es targetCharacterList:", targetCharacterList);
       }
+
       const otherPlayerSelectedCharacter = isFirstUserPlaying ? secondUserCharacterSelected : firstUserCharacterSelected;
-
-      targetCharacterList.forEach(characterInfo => {
-        const characterName = characterInfo[1];
-        const characterContainer = document.querySelector(`.color-container.${characterName}`);
-        const characterClasses = characterContainer.classList;
-
-        if (characterName == otherPlayerSelectedCharacter) {
+      
+      otherPlayerSelectedCharacterClasses = [];
+      otherCharacterList.forEach(characterInfo => {
+        const characterClasses = characterInfo.classList; 
+        const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
+        if (characterName === otherPlayerSelectedCharacter) {
           youAreTheWinner();
         }
+        otherPlayerSelectedCharacterClasses.push(...characterClasses);
+      });
 
-        if (otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)){
+      targetCharacterList.forEach(characterInfo => {
+        const characterClasses = characterInfo.classList; 
+        const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
+
+        if (otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
           if (!characterClasses.contains(buttonFirstClass)) {
-            changeToCharacterDiscard(characterContainer);
-            // Actualiza la clase en el objeto de información del personaje
-            characterInfo[2] = 'character-discarded';
-            console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero si con el personaje seleccionado por el otro jugador.`);
-            console.log(characterContainer);
+            changeToCharacterDiscard(characterInfo);
+            characterInfo.classList.add('character-discarded');
+            console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero sí con el personaje seleccionado por el otro jugador.`);
+            console.log(characterInfo);
           }
         }
 
-        if (!otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)){
+        if (!otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
           if (characterClasses.contains(buttonFirstClass)) {
-            changeToCharacterDiscard(characterContainer);
-            // Actualiza la clase en el objeto de información del personaje
-            characterInfo[2] = 'character-discarded';
-            console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero si con el personaje seleccionado por el otro jugador.`);
-            console.log(characterContainer);
+            changeToCharacterDiscard(characterInfo);
+            characterInfo.classList.add('character-discarded');
+            console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero sí con el personaje seleccionado por el otro jugador.`);
+            console.log(characterInfo);
           }
         }
       });
@@ -217,16 +269,16 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
       if (isFirstUserPlaying) {
         allOfCharactersOfFirstUser = targetCharacterList;
       } 
-      if (!isFirstUserPlaying)  {
+      if (!isFirstUserPlaying) {
         allOfCharactersOfSecondUser = targetCharacterList;
       }
 
       hideQuestionsAndShowNextPlayerButton();
-      console.log(`Esta es la lista de personajes del jugador actual: ${targetCharacterList}`);
+      console.log(`Esta es la lista de personajes del jugador actual:`);
+      console.log(targetCharacterList);
     });
   });  
 }
-
 
 function showButtonForNextPlayer() {
   const nextParticipantBtn = document.getElementById("next-participant-btn");
@@ -235,8 +287,10 @@ function showButtonForNextPlayer() {
 
 function hideQuestionsAndShowNextPlayerButton() {
   const questionsContainer = document.getElementById("questions-container");
+  questionsBtn.style.display = "none"; 
   questionsContainer.style.display = "none";
   showButtonForNextPlayer();
+
 }
 
 function showGameStartFirstPopup() {    
@@ -245,54 +299,37 @@ function showGameStartFirstPopup() {
     isFirstUserPlaying=true;
   allOfcontainersOfCharacters.forEach((container) => {
     
-    changeColorsForEachPlayer();
   });
-
+  const closeGameFirstPlayerPopupBtn = document.getElementById("close-game-first-player-popup");
+  closeGameFirstPlayerPopupBtn.addEventListener("click", () => {
+    changeToNextPlayer();
+  });
+  
   comparisonOfClassesToDiscardCharactersAccordingEachQuestion();
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.addEventListener("click", () => {
     changeToNextPlayer();
+    questionsBtn.style.display = "block"; 
   });
   console.log("estoy en showGameStartFirstPopup, isGameOver: ", isGameOver, "isFirstUserPlaying: ", isFirstUserPlaying);  
   updateHiddenCharacter();
   handleSolutionButton(); 
 }
 
-function showAndHideQuestions() {
-  const questionsBtn = document.getElementById("questions-btn");
-  const allOfQuestions = document.getElementById("questions-container");
-  const questionButtons = document.querySelectorAll(".individual-question-btn");
-
-  questionsBtn.addEventListener("click", () => {
-      if (allOfQuestions.style.display === "flex") {
-          questionButtons.forEach((button, index) => {
-              button.style.animationDelay = ""; 
-              button.style.animationPlayState = "reverse"; 
-          });
-          setTimeout(() => {
-              allOfQuestions.style.display = "none";
-          }, 800); 
-      }
-          allOfQuestions.style.display = "flex";          
-  });
-}
-
 function changeToNextPlayer() {
   isFirstUserPlaying = !isFirstUserPlaying;
   updateSelectedCharacter();
+  updateHiddenCharacter();
   changeColorsForEachPlayer();
   comparisonOfClassesToDiscardCharactersAccordingEachQuestion()
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.style.display = "none";
-  const questionsContainer = document.getElementById("questions-container");
-  questionsContainer.style.display = "flex";
-}
+} 
 
-
-
+showWelcomeOfFirstPlayerPopup();
 updateSelectedCharacter();
 eventClicForAllOfCcharacters()
 getNamesAndStateOfCharactersForEachPlayer(); 
 showAndHideQuestions();
-/* handleSolutionButton() */
+
 
