@@ -238,13 +238,12 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
         if (characterName === otherPlayerSelectedCharacter) {
           youAreTheWinner();
         }
-/*         otherPlayerSelectedCharacterClasses.push(...characterClasses); */
       });
 
       targetCharacterList.forEach(characterInfo => {
         const characterClasses = characterInfo.classList; 
         const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
-
+// Aquí en lugar de comparar con el personaje oculto, no se porqué compara con el elegido por el jugador activo
         if (otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
           if (!characterClasses.contains(buttonFirstClass)) {
             changeToCharacterDiscard(characterInfo);
