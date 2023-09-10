@@ -90,7 +90,7 @@ function changeColorsForEachPlayer() {
   });
 }
 
-function getNamesAndStateOfCharactersForEachPlayer() {
+function saveNamesAndStateOfCharactersForEachPlayer() {
   allOfcontainersOfCharacters.forEach((container) => {
     const allOfClassesOfCharacter = container.classList;
     if (allOfClassesOfCharacter.length > 2) {
@@ -106,16 +106,15 @@ function getNamesAndStateOfCharactersForEachPlayer() {
   console.log("Personajes del segundo usuario secondPlayerAllOfcontainersOfCharacters:", secondPlayerAllOfcontainersOfCharacters);
 }
 
-function updateCharactersForEachPlayer() {
+function updateTheirOwnCharactersForEachPlayer() {
   const targetCharacterList = isFirstUserPlaying ? allOfCharactersOfFirstUser : allOfCharactersOfSecondUser;
 
   targetCharacterList.forEach((characterInfo) => {
-    allOfcontainersOfCharacters[containerIndex].classList.add(...characterInfo);
+    container.classList = targetCharacterList[containerIndex].join(' ');
   });
 }
 
 function showTheCharactersSavedByEachPlayer(playerCharacters) {
-  console.log("Personajes del jugador:", playerCharacters);
 }
 
  const questionsBtn = document.getElementById("questions-btn");
@@ -317,14 +316,15 @@ function changeToNextPlayer() {
   updateSelectedCharacter();
   updateHiddenCharacter();
   changeColorsForEachPlayer();
-  comparisonOfClassesToDiscardCharactersAccordingEachQuestion()
+  comparisonOfClassesToDiscardCharactersAccordingEachQuestion();
+  updateTheirOwnCharactersForEachPlayer();
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.style.display = "none";
 } 
 showWelcomeOfFirstPlayerPopup();
 updateSelectedCharacter();
-eventClicForAllOfCcharacters()
-getNamesAndStateOfCharactersForEachPlayer(); 
+eventClicForAllOfCcharacters();
+saveNamesAndStateOfCharactersForEachPlayer(); 
 showAndHideQuestions();
 
 
