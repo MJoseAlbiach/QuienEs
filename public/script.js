@@ -11,15 +11,19 @@ let isFirstUserPlaying = true;
 isGameOver=false;
 let charactersSelected = 0; 
 
-function showPopup(popupId, closePopupButton) {
+function showPopup(popupId, closePopupButtonId) {
   const popup = document.getElementById(popupId);
-  const closePopupButon = document.getElementById(closePopupButton);
-  popup.style.display = "flex";
+  const closePopupButton = document.getElementById(closePopupButtonId);
 
-  closePopupButon.onclick = function () {
-  popup.style.display = "none";
-  };     
+  if (popup && closePopupButton) {
+    popup.style.display = "flex";
+    
+    closePopupButton.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  }
 }
+
 
 function handleCharacterClick(event) {
   const clickedContainer = event.currentTarget;
@@ -109,15 +113,15 @@ function saveNamesAndStateOfCharactersForEachPlayer() {
 function updateTheirOwnCharactersForEachPlayer() {
   const targetCharacterList = isFirstUserPlaying ? allOfCharactersOfFirstUser : allOfCharactersOfSecondUser;
 
-  targetCharacterList.forEach((characterInfo) => {
-    container.classList = targetCharacterList[containerIndex].join(' ');
-  });
+  
+  targetCharacterList.forEach((characterInfo, index) => {
+
+    characterInfo.classList = targetCharacterList[index].join(' ');
+ 
+   });
 }
 
-function showTheCharactersSavedByEachPlayer(playerCharacters) {
-}
-
- const questionsBtn = document.getElementById("questions-btn");
+const questionsBtn = document.getElementById("questions-btn");
 function showAndHideQuestions() {
  
   const allOfQuestions = document.getElementById("questions-container");
@@ -242,11 +246,13 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
       targetCharacterList.forEach(characterInfo => {
         const characterClasses = characterInfo.classList; 
         const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
-// Aquí en lugar de comparar con el personaje oculto, no se porqué compara con el elegido por el jugador activo
+        const characterImage = characterInfo.querySelector(".character");
+        // Aquí en lugar de comparar con el personaje oculto, no se porqué compara con el elegido por el jugador activo
         if (otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
           if (!characterClasses.contains(buttonFirstClass)) {
             changeToCharacterDiscard(characterInfo);
-            characterInfo.classList.add('character-discarded');
+            characterInfo.classList.add('character-discarded');         
+            characterImage.classList.add('grey-image');
             console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero sí con el personaje seleccionado por el otro jugador.`);
             console.log(characterInfo);
           }
@@ -257,6 +263,7 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
           if (characterClasses.contains(buttonFirstClass)) {
             changeToCharacterDiscard(characterInfo);
             characterInfo.classList.add('character-discarded');
+            characterImage.classList.add('grey-image');
             console.log(`El botón con clase "${buttonFirstClass}" no coincide con el personaje "${characterName}" pero sí con el personaje seleccionado por el otro jugador.`);
             console.log(characterInfo);
           }

@@ -29,6 +29,7 @@ body {
     margin-top: 10px;
     border: 2px solid rgba(0, 0, 0, 0.5);
     text-align: center;
+    max-width: 100%;
 }
 
 .highlighted-name {
@@ -82,10 +83,6 @@ body {
     background-color: #6b96bc;
    }
 
-/* #your-selected-character-container{
-   
-} */
-
 #hidden-character-container{
     background-color: #a25ebf91;
     margin: 20px 0px 20px 0px;
@@ -99,7 +96,7 @@ body {
 }
 
 #logo{
-    max-height: 100px;
+    width: 100%;
 }
 
 #welcome-name {
@@ -196,7 +193,6 @@ body {
 }
 
 .color-container {
-   /*  background-color: #74be77; */
     border: 2px solid rgba(0, 0, 0, 0.511);
     display:grid;
     align-self: start;
@@ -204,14 +200,13 @@ body {
     opacity: 0;
 }
 
-/* Define la animación */
 @keyframes slideIn {
     0% {
-        transform: translateY(20px); /* Desplaza hacia abajo */
+        transform: translateY(20px);
         opacity: 0;
     }
     100% {
-        transform: translateY(0); /* Sin desplazamiento */
+        transform: translateY(0);
         opacity: 1;
     }
 
@@ -224,14 +219,21 @@ body {
 }
 
 .character-selected {
-    width: 100px;
-    height: 100px;  
+    max-width: 250px;
+    max-height: 250px;
+    width: 100%;
+    height: auto;
 }
     
 .character-discarded {
-    background-color: red;
+    background-color: rgba(163, 11, 11, 0.708);
     /* filter: grayscale(100%);*/
         opacity: 25%; 
+}
+
+.grey-image {
+    filter: grayscale(100%);
+    opacity:50%;
 }
 
 .rosa { 
@@ -310,12 +312,11 @@ body {
 
 .popup {
     display: none;
-    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 0.5em;
     width: 100%;
-    height: 100%;
+    max-width: 80%;
+    height: 95%;
 }
 
 .popup-content {
@@ -364,7 +365,7 @@ body {
 }
  
 .img-button-popup{
-    max-width: 200px;
+    max-width: 150px;
     cursor: pointer;
      margin: 20px;
 }

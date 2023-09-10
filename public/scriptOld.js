@@ -11,15 +11,19 @@ let isFirstUserPlaying = true;
 isGameOver=false;
 let charactersSelected = 0; 
 
-function showPopup(popupId, closePopupButton) {
+function showPopup(popupId, closePopupButtonId) {
   const popup = document.getElementById(popupId);
-  const closePopupButon = document.getElementById(closePopupButton);
-  popup.style.display = "flex";
+  const closePopupButton = document.getElementById(closePopupButtonId);
 
-  closePopupButon.onclick = function () {
-  popup.style.display = "none";
-  };     
+  if (popup && closePopupButton) {
+    popup.style.display = "flex";
+    
+    closePopupButton.addEventListener("click", () => {
+      popup.style.display = "none";
+    });
+  }
 }
+
 
 function handleCharacterClick(event) {
   const clickedContainer = event.currentTarget;
@@ -90,7 +94,7 @@ function changeColorsForEachPlayer() {
   });
 }
 
-function getNamesAndStateOfCharactersForEachPlayer() {
+function saveNamesAndStateOfCharactersForEachPlayer() {
   allOfcontainersOfCharacters.forEach((container) => {
     const allOfClassesOfCharacter = container.classList;
     if (allOfClassesOfCharacter.length > 2) {
@@ -106,16 +110,15 @@ function getNamesAndStateOfCharactersForEachPlayer() {
   console.log("Personajes del segundo usuario secondPlayerAllOfcontainersOfCharacters:", secondPlayerAllOfcontainersOfCharacters);
 }
 
-function updateCharactersForEachPlayer() {
+function updateTheirOwnCharactersForEachPlayer() {
   const targetCharacterList = isFirstUserPlaying ? allOfCharactersOfFirstUser : allOfCharactersOfSecondUser;
 
   targetCharacterList.forEach((characterInfo) => {
-    allOfcontainersOfCharacters[containerIndex].classList.add(...characterInfo);
+    container.classList = targetCharacterList[containerIndex].join(' ');
   });
 }
 
 function showTheCharactersSavedByEachPlayer(playerCharacters) {
-  console.log("Personajes del jugador:", playerCharacters);
 }
 
  const questionsBtn = document.getElementById("questions-btn");
@@ -317,14 +320,15 @@ function changeToNextPlayer() {
   updateSelectedCharacter();
   updateHiddenCharacter();
   changeColorsForEachPlayer();
-  comparisonOfClassesToDiscardCharactersAccordingEachQuestion()
+  comparisonOfClassesToDiscardCharactersAccordingEachQuestion();
+  updateTheirOwnCharactersForEachPlayer();
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.style.display = "none";
 } 
 showWelcomeOfFirstPlayerPopup();
 updateSelectedCharacter();
-eventClicForAllOfCcharacters()
-getNamesAndStateOfCharactersForEachPlayer(); 
+eventClicForAllOfCcharacters();
+saveNamesAndStateOfCharactersForEachPlayer(); 
 showAndHideQuestions();
 
 
