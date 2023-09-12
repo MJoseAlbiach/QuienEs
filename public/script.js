@@ -3,6 +3,8 @@ const firstPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#chara
 const secondPlayerAllOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
 const allOfQuestions = document.getElementById("questions-container");
 const selectedCharacterName = document.getElementById('selected-character-name');
+const questionsBtn = document.getElementById("questions-btn");
+
 let allOfCharactersOfFirstUser = [];
 let allOfCharactersOfSecondUser = [];
 let otherPlayerSelectedCharacterClasses = [];
@@ -23,7 +25,6 @@ function showPopup(popupId, closePopupButtonId) {
     });
   }
 }
-
 
 function handleCharacterClick(event) {
   const clickedContainer = event.currentTarget;
@@ -110,18 +111,14 @@ function saveNamesAndStateOfCharactersForEachPlayer() {
   console.log("Personajes del segundo usuario secondPlayerAllOfcontainersOfCharacters:", secondPlayerAllOfcontainersOfCharacters);
 }
 
+// NO ACTUALIZA LOS PERSONAJES DECARTADOS, SE QUEDA EN LOS PRIMEROS
 function updateTheirOwnCharactersForEachPlayer() {
   const targetCharacterList = isFirstUserPlaying ? allOfCharactersOfFirstUser : allOfCharactersOfSecondUser;
-
-  
   targetCharacterList.forEach((characterInfo, index) => {
-
     characterInfo.classList = targetCharacterList[index].join(' ');
- 
    });
 }
 
-const questionsBtn = document.getElementById("questions-btn");
 function showAndHideQuestions() {
  
   const allOfQuestions = document.getElementById("questions-container");
@@ -233,23 +230,40 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
       }
 
       const otherPlayerSelectedCharacter = isFirstUserPlaying ? secondUserCharacterSelected : firstUserCharacterSelected;
+      //NUEVO IA
+      /* const otherPlayerSelectedCharacterClasses = Array.from(otherCharacterList.find(characterInfo => 
+        characterInfo.querySelector(".highlighted-name").textContent === otherPlayerSelectedCharacter
+      ).classList);
+ */
       
-      otherPlayerSelectedCharacterClasses = [];
-      otherCharacterList.forEach(characterInfo => {
-        const characterClasses = characterInfo.classList; 
-        const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
-        if (characterName === otherPlayerSelectedCharacter) {
-          youAreTheWinner();
+       otherPlayerSelectedCharacterClasses = []; 
+       for (let i = 0; i < otherCharacterList.length; i++) {
+        const characterInfo = otherCharacterList[i];
+        const highlightedName = characterInfo.querySelector(".highlighted-name");
+      
+        if (highlightedName && highlightedName.textContent === otherPlayerSelectedCharacter) {
+          otherPlayerSelectedCharacterClasses = Array.from(characterInfo.classList);
+          break; // Rompe el bucle una vez que se encuentra la coincidencia.
         }
-      });
+      }
+      /* otherCharacterList.forEach(characterInfo => {
+        const characterClasses = characterInfo.classList; 
+        const characterName = characterInfo.querySelector(".highlighted-name").textContent;  */
+
+        
+      //});
+      /* if (characterName === otherPlayerSelectedCharacter) {
+          youAreTheWinner();
+        } */
 
       targetCharacterList.forEach(characterInfo => {
-        const characterClasses = characterInfo.classList; 
+        const characterClasses = Array.from(characterInfo.classList);  
         const characterName = characterInfo.querySelector(".highlighted-name").textContent; 
         const characterImage = characterInfo.querySelector(".character");
+       
         // Aquí en lugar de comparar con el personaje oculto, no se porqué compara con el elegido por el jugador activo
         if (otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
-          if (!characterClasses.contains(buttonFirstClass)) {
+          if (!characterClasses.includes(buttonFirstClass)) {
             changeToCharacterDiscard(characterInfo);
             characterInfo.classList.add('character-discarded');         
             characterImage.classList.add('grey-image');
@@ -260,7 +274,7 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
         }
 
         if (!otherPlayerSelectedCharacterClasses.includes(buttonFirstClass)) {
-          if (characterClasses.contains(buttonFirstClass)) {
+          if (characterClasses.includes(buttonFirstClass)) {
             changeToCharacterDiscard(characterInfo);
             characterInfo.classList.add('character-discarded');
             characterImage.classList.add('grey-image');
@@ -324,6 +338,7 @@ function changeToNextPlayer() {
   updateHiddenCharacter();
   changeColorsForEachPlayer();
   comparisonOfClassesToDiscardCharactersAccordingEachQuestion();
+  saveNamesAndStateOfCharactersForEachPlayer(); 
   updateTheirOwnCharactersForEachPlayer();
   const nextParticipantBtn = document.getElementById("next-participant-btn");
   nextParticipantBtn.style.display = "none";
