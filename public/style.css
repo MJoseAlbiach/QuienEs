@@ -160,7 +160,7 @@ body {
     background-color: #9b05a6;    
     border-radius: 0px 50% 50% 50%;  
     padding: 15px 20px 30px 15px; 
-    font-size: xx-large;
+    font-size: 1.3em;
     display: none;
 }
 
@@ -232,8 +232,6 @@ body {
     
 .character-discarded {
     background-color: rgba(163, 11, 11, 0.708);
-    /* filter: grayscale(100%);*/
-        opacity: 25%; 
 }
 
 .grey-image {
@@ -362,6 +360,11 @@ body {
 
 #game-over-popup{
     background-color: #96372b;
+
+}
+
+#winner-popup{
+    background-color: #711283;
 
 }
 
