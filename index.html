@@ -146,7 +146,18 @@
                     </div>
                 </div>   
                 <button id="solution-btn" class="buttons">Solución!!</button>
+                
                 <button id="game-rules-btn" class="buttons">Reglas del juego</button>               
+                <div id="game-rules-container">
+                    <span class="rules-title">Objetivo</span> 
+                    <p>Adivinar el personaje oculto de tu contrincante, quien lo haga antes ganará.</p> 
+                    <p class="rules-descripton">Seleccionar vuestro personaje y elegir una pregunta para descartar:</p> 
+                      <p>Si el personaje oculto tiene esa característica, se descartarán los personajes que NO la tengan.</p>
+                      <p>Si el personaje oculto NO tiene esa característica, se descartarán los personajes que la tengan.</p>
+                      <p class="rules-descripton">Analizar la respuesta según los descartes.</p>
+                      <p class="rules-descripton">Apostar:</p>
+                      <p class="rules-descripton">En cualquier momento, después de haber seleccionado los personajes, puedes ticar en uno para apostar que ese es el personaje oculto, o ir descartando según las preguntas.</p>                    
+                  </div>
             </div>    
         </div>
     </div>       
@@ -169,15 +180,17 @@
     </div>
         <div class="popup" id="start-first-player-popup">
             <div id="start-game-first-player-popup" class="popup-content colorOfBackgroundsOfFirstPlayer">
-                <h2 class="mensaje-popup">Empieza el juego!!</h2>               
-                <span class="span-popup">Participante 1: Pulsa en el botón PREGUNTAS y elije una para ir descartando personajes.</span>
+                <h2 class="mensaje-popup">Participante 1</h2>  
+                <h2 class="mensaje-popup">EMPIEZA EL JUEGO!!</h2>               
+                <span class="span-popup">Pulsa en PREGUNTAS y elije una para descartar personajes</span><br/>
+                <span class="span-popup">O tica en un personaje para APOSTAR por el personaje oculto</span>      
                 <img  id="close-game-first-player-popup" class="img-button-popup" src="public/images/botonInicioQiuienEsJugarBco.png" alt="Participante 1 - Botón para empezar a jugar ">
             </div>
         </div>
         <div class="popup" id="show-next-participant-popup">
             <div id="next-participant-popup" class="popup-content background-alternate-class">
                 <h2 class="mensaje-popup">SEGUIMOS JUGANDO!!</h2>               
-                <span class="span-popup">SIGUIENTE PARTICIPANTE</span>
+                <h2 class="span-popup">Siguiente participante</h2>
                 <img  id="close-next-participant-popup" class="img-button-popup" src="public/images/botonInicioQiuienEsJugarBco.png" alt="Participante 1 - Botón para empezar a jugar ">
             </div>
         </div>
@@ -190,7 +203,7 @@
         <div class="popup" id="show-winner-popup">
             <div id="winner-popup" class="popup-content background-alternate-class">
                 <h2 class="mensaje-popup">¡¡¡¡ HAS GANADO!!!!</h2>               
-                <span class="span-popup">bien por ti !!!</span>
+                <h2 class="span-popup">bien por ti !!!</h2>
            </div>
         </div>
     </div>   
