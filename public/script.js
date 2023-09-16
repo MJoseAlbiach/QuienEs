@@ -1,4 +1,6 @@
 const allOfcontainersOfCharacters = document.querySelectorAll("#characters .color-container");
+const CharactersForFirstUser = document.querySelectorAll("#characters .color-container");
+const CharactersForSecondUser = document.querySelectorAll("#characters .color-container");
 let firstPlayerAllOfcontainersOfCharacters = [];
 let secondPlayerAllOfcontainersOfCharacters = [];
 let firstUserClassesCharacterSelected, secondUserClassesCharacterSelected ,firstUserCharacterSelected, secondUserCharacterSelected, IBetThisIsTheHiddenCharacter;
@@ -13,11 +15,13 @@ isGameOver=false;
 let numberOfCharactersSelected = 0; 
 MAXIM_OF_CHARACTERS_SELECTEDS = 2;
 
+/* He probado a cogerlas independientemente CharactersForFirstUser, pero estas listas no son independientes, cuando se actualizan lo hacen a la vez */
 function assignStartingCharactersToEachUser() {
-  firstPlayerAllOfcontainersOfCharacters = Array.from(allOfcontainersOfCharacters);
-  secondPlayerAllOfcontainersOfCharacters = Array.from(allOfcontainersOfCharacters);
-  console.log(`assignStartingCharactersToEachUser() - Contenido de firstPlayerAllOfcontainersOfCharacters:`, firstPlayerAllOfcontainersOfCharacters);
-  console.log(`assignStartingCharactersToEachUser() - Contenido de secondPlayerAllOfcontainersOfCharacters:`, secondPlayerAllOfcontainersOfCharacters);
+  firstPlayerAllOfcontainersOfCharacters = [...CharactersForFirstUser];
+  secondPlayerAllOfcontainersOfCharacters = [...CharactersForSecondUser];
+
+  console.log(`assignStartingCharactersToEachUser() - Contenido de firstPlayerAllOfcontainersOfCharacters:`, Array.from(firstPlayerAllOfcontainersOfCharacters));
+  console.log(`assignStartingCharactersToEachUser() - Contenido de secondPlayerAllOfcontainersOfCharacters:`, Array.from(secondPlayerAllOfcontainersOfCharacters));
 }
 
 function showPopup(popupId, closePopupButtonId) {
@@ -321,13 +325,10 @@ function hideQuestionsAndShowNextPlayerButton() {
 
 function showGameStartFirstPopup() {    
   showPopup("start-first-player-popup", "close-game-first-player-popup");  
-  const startGameFirstPlayerPopup = document.getElementById("start-first-player-popup");
- 
-    isFirstUserPlaying=true;
+  const startGameFirstPlayerPopup = document.getElementById("start-first-player-popup");  
+  const closeGameFirstPlayerPopupBtn = document.getElementById("close-game-first-player-popup");
 
-    allOfcontainersOfCharacters.forEach((container) => {  
-    });
-    const closeGameFirstPlayerPopupBtn = document.getElementById("close-game-first-player-popup");
+  isFirstUserPlaying=true;
 
     closeGameFirstPlayerPopupBtn.addEventListener("click", () => {
     changeToNextPlayer();
