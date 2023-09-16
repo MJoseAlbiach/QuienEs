@@ -24,6 +24,7 @@ body {
     display: inline-block;
     padding: 5px 5px;
     color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3) inset; 
     border: none;
     border: 2px solid rgba(0, 0, 0, 0.5);
@@ -34,6 +35,7 @@ body {
 .highlighted-name {
     display: inline-block;
     color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     box-shadow: 10px 15px 25px rgba(0, 0, 0, 0.577) inset;
     border: none;
     min-width: 100%;
@@ -41,6 +43,7 @@ body {
     margin-bottom: 0px;  
     margin-top: 0px;
     font-size: 1.3em;
+    padding: 2px 0px 2px 0px;
 }
 
 #characters {
@@ -52,6 +55,7 @@ body {
     margin: 0px 5px 0px 10px;
     align-items: start;
     align-content: start;
+    margin-top: 5px;
 }
 
 #right-side { 
@@ -118,14 +122,15 @@ body {
 .buttons {
     display: inline-block;
     color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     cursor: pointer;
     transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3) inset;
     border-bottom: 2px solid rgba(71, 62, 62, 0.555);
     transform-style: preserve-3d;
     perspective: 800px;
-    border: 2px solid rgba(15, 14, 14, 0.412);
-    margin-top: 10px;
+    border-radius: 25% 25% 25% 25%;
+    border: 2px solid rgba(15, 14, 14, 0.412);  
 }
 
 .buttons:hover {
@@ -135,30 +140,30 @@ body {
 }
 
 .buttons:active {
-  transform: translate(0, 0) rotateX(0);
+    transform: translate(0, 0) rotateX(0);
     background-color: #dde8dd75; 
 }
 
 #game-rules-btn {
-    background-color: rgb(6, 175, 187);
-    border-radius:50% 50% 0px 0px;
-    padding: 15px 10px 10px 9px;
-    font-size: x-large;
-}
-
-#questions-btn {   
-    background-color: #5ebf62;    
-    border-radius: 0px 50% 50% 50%;  
-    padding: 15px 20px 30px 15px; 
-    font-size: xx-large;
+    background-color: rgb(6, 175, 187);  
+    padding: 7% 10% 7% 10%;
+    font-size: larger;
+    margin: 4% auto 0px auto;
     
 }
 
+#questions-btn {   
+    background-color: #1b6b60;  
+    padding: 3% 7% 3% 7%;
+    font-size: x-large; 
+    margin: 6% auto 8% auto;  
+}
+
 #next-participant-btn {
-    background-color: #9b05a6;    
-    border-radius: 0px 50% 50% 50%;  
-    padding: 15px 20px 30px 15px; 
-    font-size: 1.3em;
+    background-color: #7c1784;      
+    padding: 3% 7% 3% 7%;
+    font-size: large;
+    margin: 6% auto 8% auto;
     display: none;
 }
 
@@ -168,28 +173,24 @@ body {
     flex-direction: column;
 }
 
-.individual-question-btn {
-    background-color: #046c07;
-    border-radius: 60px 50% 50% 0%;  
-    padding: 15px 20px 10px 15px; 
+#questions-title{
+    margin-top: 0px;
+}
 
+.individual-question-btn {
+    background-color: #1b6b60;
+    padding: 3% 7% 3% 7%;
+    margin: 2% auto;
+    font-size: larger;
     animation: fade-in 3s forwards;
 }
 
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
 #solution-btn {   
-    background-color: #da4a83;    
-    border-radius: 50%;  
-    padding: 10px 10px 12px 10px;
+    background-color: #da4a83;
+    border-radius: 25% 25% 25% 25%;
+    padding: 3% 7% 3% 7%;
     font-size: x-large;
+    margin: 4% auto;
 }
 
 .color-container {
@@ -199,17 +200,6 @@ body {
     align-self: start;
     animation: slideIn 1s forwards;
     opacity: 0;
-}
-
-@keyframes slideIn {
-    0% {
-        transform: translateY(20px);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
 }
 
 .character {
@@ -252,14 +242,14 @@ body {
     font-size: 1.3em;
 }
 
-.rosa { 
+.ana { 
     grid-area: 1 / 1 / 2 / 2; 
   }
 
-.juan { 
+.diego { 
     grid-area: 1 / 2 / 2 / 3; 
 }
-.alexia { 
+.lola { 
     grid-area: 1 / 3 / 2 / 4; 
 }
 .hugo { 
@@ -271,37 +261,37 @@ body {
 .ivan { 
     grid-area: 1 / 6 / 2 / 7; 
 }
-.ana { 
+.sara { 
     grid-area: 2 / 1 / 3 / 2; 
 }
 .eva { 
     grid-area: 2 / 2 / 3 / 3; 
 }
-.sara { 
+.carlos { 
     grid-area: 2 / 3 / 3 / 4; 
 }
 .gala { 
     grid-area: 2 / 4 / 3 / 5;
 }
-.iker {
+.luis {
     grid-area: 2 / 5 / 3 / 6;
 }
 .andres { 
     grid-area: 2 / 6 / 3 / 7;
 }
-.noa { 
+.emma { 
     grid-area: 3 / 1 / 4 / 2; 
 }
-.diego { 
+.juan { 
     grid-area: 3 / 2 / 4 / 3; 
 }
-.emma { 
+.noa { 
     grid-area: 3 / 3 / 4 / 4; 
 }
-.laura { 
+.ines { 
     grid-area: 3 / 4 / 4 / 5; 
 }
-.lola { 
+.alexia { 
     grid-area: 3 / 5 / 4 / 6;    
 }
 .julia { 
@@ -310,7 +300,7 @@ body {
 .javier { 
     grid-area: 4 / 1 / 5 / 2; 
 }
-.carlos { 
+.rosa { 
     grid-area: 4 / 2 / 5 / 3; 
 }
 .maria { 
@@ -319,10 +309,10 @@ body {
 .miguel { 
     grid-area: 4 / 4 / 5 / 5; 
 }
-.ines { 
+.laura { 
     grid-area: 4 / 5 / 5 / 6; 
 }
-.luis { 
+.iker { 
     grid-area: 4 / 6 / 5 / 7; 
 }
 
@@ -383,6 +373,7 @@ body {
 
 .span-popup {
     color: white;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
     margin: 10px auto;
 }
  
@@ -390,4 +381,24 @@ body {
     max-width: 150px;
     cursor: pointer;
      margin: 20px;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
