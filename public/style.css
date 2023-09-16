@@ -240,6 +240,12 @@ body {
     background-color: rgba(6, 175, 187, 0.332);
     border: 2px solid rgba(15, 14, 14, 0.412);
     display: none;
+    transition: max-height 2s ease-in-out;
+}
+
+.show-like-slide {
+    display: block;
+    max-height: 600px;
 }
 
 .rules-title {
