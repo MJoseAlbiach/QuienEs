@@ -233,11 +233,12 @@ body {
 }
 
 #game-rules-container{
-    padding: 20px 10px;
+    padding: 100px 10px 20px 10px;
     background-color: rgba(6, 175, 187, 0.332);
     border: 2px solid rgba(15, 14, 14, 0.412);
     display: none;
-    transition: max-height 2s ease-in-out;
+    z-index: -2;
+    margin-top: -80px;
 }
 
 .show-like-slide {

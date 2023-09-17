@@ -415,7 +415,7 @@ function showAndHideGameRules(){
         yourSelectedCharacterContainer.display = "block";
         setTimeout(() => {
             rulesContainer.style.display = "none";
-        }, 900);
+        }, 500);
     }
     isShown = !isShown;
   });
