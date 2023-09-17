@@ -5,11 +5,11 @@ let firstPlayerAllOfcontainersOfCharacters = [];
 let secondPlayerAllOfcontainersOfCharacters = [];
 let firstUserClassesCharacterSelected, secondUserClassesCharacterSelected ,firstUserCharacterSelected, secondUserCharacterSelected, IBetThisIsTheHiddenCharacter;
 const questionsBtn = document.getElementById("questions-btn");
-const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
 const selectedCharacterImg = document.getElementById('user-selected-character-image');
 const selectedCharacterName = document.getElementById('selected-character-name');
 const solutionBtn = document.getElementById("solution-btn");
 const hiddenCharacterContainer = document.getElementById("hidden-character-container");  
+const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
 let isFirstUserPlaying = true;
 isGameOver=false;
 let numberOfCharactersSelected = 0; 
@@ -87,13 +87,23 @@ function updateSelectedCharacter() {
 
   if (!characterSelected) {
     selectedCharacterImg.src = `public/images/girl.png`;
-      selectedCharacterName.textContent = "¿...?";   
+    selectedCharacterName.textContent = "¿...?";
   }
+
   if (characterSelected) {
-  selectedCharacterImg.src = `public/images/${characterSelected}.png`;
-  selectedCharacterName.textContent = characterSelected;
+  
+    const characterNameElement = document.querySelector(`.color-container.active.${characterSelected} h4.highlighted-name`);
+    
+    if (characterNameElement) {
+      selectedCharacterName.textContent = characterNameElement.textContent;
+    } 
+    if (!characterNameElement) {
+      selectedCharacterName.textContent = characterSelected;
+    }
+    selectedCharacterImg.src = `public/images/${characterSelected}.png`;
   }
 }
+
 
 function eventClicForAllOfCcharacters(){
   allOfcontainersOfCharacters.forEach((container) => {
@@ -146,10 +156,10 @@ function updateCharactersClassesForEachPlayer(classesOfCurrentPlayer) {
   allOfCharactersOfScreen.forEach((elementOfScreen, index) => {
     const classesOfCurrentContainer = Array.from(classesOfCurrentPlayer);
     elementOfScreen.classList = [];
-    classesOfCurrentContainer.forEach((classToAdd) => {
-      elementOfScreen.classList.add(classToAdd);
+    classesOfCurrentContainer.forEach(( classesToAd) => {
+      elementOfScreen.classList.add( classesToAd);
     });
-    console.log(`updateCharactersClassesForEachPlayer() - Estas son las clases para añadir: ${classToAdd}`);
+    console.log(`updateCharactersClassesForEachPlayer() - Estas son las clases para añadir: ${ classesToAd}`);
 
     const container = elementOfScreen.parentElement;
 
@@ -176,10 +186,11 @@ function showAndHideQuestions() {
 
           setTimeout(() => {
               allOfQuestions.style.display = "none";
-          }, 800); 
+          }, 300); 
       }
-
-      allOfQuestions.style.display = "flex";          
+      setTimeout(() => {
+      allOfQuestions.style.display = "flex";  
+    }, 300);        
   });
 }
 
@@ -200,7 +211,7 @@ function showWelcomeOfSecondPlayerPopup() {
   closeSecondPlayerPopupButton.addEventListener("click", () => {
     changeColorsForTheListsOfEachPlayer();
     changeColorsCharactersScreenForEachPlayer();   
-    const yourSelectedCharacterContainer = document.getElementById('your-selected-character-container');
+    
     yourSelectedCharacterContainer.classList.remove("colorOfBackgroundsOfFirstPlayer");
     yourSelectedCharacterContainer.classList.add("colorOfBackgroundsOfSecondPlayer");
     const selectedCharacterImg = document.getElementById('user-selected-character-image');
@@ -215,7 +226,7 @@ function showGameOverPopup() {
 
   setTimeout(() => {
     gameOverPopup.style.display = "block";
-  }, 2000);
+  }, 1000);
 }
 
 function showWinnerPopup(){
@@ -229,15 +240,33 @@ function showWinnerPopup(){
 
 function updateHiddenCharacter() {
   const hiddenCharacterImg = document.getElementById('user-hidden-character-image');
-  const hiddenCharacterName = document.getElementById('hidden-character-name'); 
+  const hiddenCharacterName = document.getElementById('hidden-character-name');
 
   if (isFirstUserPlaying) {
+    // Encuentra el elemento <h4> correspondiente al personaje oculto seleccionado por el segundo usuario
+    const characterNameElement = document.querySelector(`.color-container.active.${secondUserCharacterSelected} h4.highlighted-name`);
+
+    if (characterNameElement) {
+      // Obtiene el texto del elemento <h4> y lo asigna al nombre del personaje oculto
+      hiddenCharacterName.textContent = characterNameElement.textContent;
+    } else {
+      // Si no se encuentra el elemento, simplemente usa el valor de secondUserCharacterSelected
+      hiddenCharacterName.textContent = secondUserCharacterSelected;
+    }
+
+    // Actualiza la imagen del personaje oculto
     hiddenCharacterImg.src = `public/images/${secondUserCharacterSelected}.png`;
-    hiddenCharacterName.textContent = secondUserCharacterSelected;
-  } 
-  if (!isFirstUserPlaying) {
+  } else {
+    // Lo mismo para el caso en que el segundo usuario está jugando
+    const characterNameElement = document.querySelector(`.color-container.active.${firstUserCharacterSelected} h4.highlighted-name`);
+
+    if (characterNameElement) {
+      hiddenCharacterName.textContent = characterNameElement.textContent;
+    } else {
+      hiddenCharacterName.textContent = firstUserCharacterSelected;
+    }
+
     hiddenCharacterImg.src = `public/images/${firstUserCharacterSelected}.png`;
-    hiddenCharacterName.textContent = firstUserCharacterSelected;
   }
 }
 
