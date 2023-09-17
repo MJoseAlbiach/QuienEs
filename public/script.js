@@ -238,8 +238,15 @@ function showGameOverPopup() {
 
 
 function showWinnerPopup(){
-  showPopup("show-winner-popup");  
+  showPopup("show-winner-popup", "close-winner-popup");  
   const WinnerPopup = document.getElementById("show-winner-popup");
+  const closeWinnerPopupButton = document.getElementById("close-winner-popup");
+
+  closeWinnerPopupButton.addEventListener("click", () => {
+    setTimeout(function() {
+      location.reload();
+    }, 500);
+  });
 
   setTimeout(() => {
     WinnerPopup.style.display = "block";
