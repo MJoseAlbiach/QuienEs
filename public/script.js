@@ -174,6 +174,7 @@ function updateCharactersClassesForEachPlayer(classesOfCurrentPlayer) {
 }
  
 function showAndHideQuestions() {
+  const questionsBtn = document.getElementById("questions-btn");
   const allOfQuestions = document.getElementById("questions-container");
   const questionButtons = document.querySelectorAll(".individual-question-btn");
 
@@ -183,14 +184,11 @@ function showAndHideQuestions() {
               button.style.animationDelay = ""; 
               button.style.animationPlayState = "reverse"; 
           });
-
           setTimeout(() => {
               allOfQuestions.style.display = "none";
-          }, 300); 
+          }, 800); 
       }
-      setTimeout(() => {
-      allOfQuestions.style.display = "flex";  
-    }, 300);        
+          allOfQuestions.style.display = "flex";          
   });
 }
 
@@ -235,7 +233,6 @@ function showGameOverPopup() {
     gameOverPopup.style.display = "block";
   }, 1000);
 }
-
 
 function showWinnerPopup(){
   showPopup("show-winner-popup", "close-winner-popup");  

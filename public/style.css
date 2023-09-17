@@ -132,6 +132,7 @@ body {
     perspective: 800px;
     border-radius: 25% 25% 25% 25%;
     border: 2px solid rgba(15, 14, 14, 0.412);  
+    min-width: 81%;
 }
 
 .buttons:hover {
@@ -147,18 +148,17 @@ body {
 
 #game-rules-btn {
     background-color: rgb(6, 175, 187);  
-    padding: 7% 10% 7% 10%;
+    padding: 4% 10% 5% 10%;
     font-size: larger;
-    margin: 4% auto 0px auto;
-    
+    margin: 4% auto 0px auto;    
 }
 
 #questions-btn {   
     background-color: #1b6b60;  
     padding: 3% 7% 3% 7%;
     font-size: x-large; 
-    margin: 6% auto 8% auto;  
-    animation: fade-in 3s forwards;
+    margin: 10% auto 5% auto; 
+    animation: fade-in 3s forwards; 
 }
 
 #next-participant-btn {
