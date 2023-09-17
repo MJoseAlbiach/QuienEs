@@ -372,12 +372,14 @@ body {
 
 #game-over-popup{
     background-color: #96372b;
-    margin-top: 100px;
+   margin-top: 100px;
+   height: 60%; 
 }
 
 #winner-popup{
     background-color: #711283;
     margin-top: 100px;
+    height: 60%;
 }
 
 .span-popup {

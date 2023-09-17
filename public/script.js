@@ -228,6 +228,31 @@ function showGameOverPopup() {
     gameOverPopup.style.display = "block";
   }, 1000);
 }
+ 
+/* function showGameOverPopup() {    
+  showPopup("show-game-over-popup", "close-game-over-popup");  
+  const gameOverPopup = document.getElementById("show-game-over-popup");
+  const closeGameOverPopupButton = document.getElementById("close-game-over-popup");
+  
+  closeGameOverPopupButton.addEventListener("click", () => {
+    assignStartingCharactersToEachUser();
+    changeColorsForTheListsOfEachPlayer(); 
+    changeColorsCharactersScreenForEachPlayer();
+
+    firstUserCharacterSelected = null;
+    secondUserCharacterSelected = null;
+    numberOfCharactersSelected = 0;
+
+    updateSelectedCharacter();
+    updateHiddenCharacter();
+    showWelcomeOfFirstPlayerPopup();
+  });
+
+  setTimeout(() => {
+    gameOverPopup.style.display = "block";
+  }, 1000);
+}
+ */
 
 function showWinnerPopup(){
   showPopup("show-winner-popup");  
@@ -412,10 +437,8 @@ function showAndHideGameRules(){
     } else {
         rulesContainer.classList.remove("show-like-slide");
         solutionBtn.style.display = "block";
-        yourSelectedCharacterContainer.display = "block";
-        setTimeout(() => {
-            rulesContainer.style.display = "none";
-        }, 500);
+        yourSelectedCharacterContainer.display = "block";       
+        rulesContainer.style.display = "none";       
     }
     isShown = !isShown;
   });
