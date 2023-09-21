@@ -19,6 +19,12 @@ body {
     justify-content: space-between;
     align-self: flex-start; 
 }
+.show {
+    display: grid;
+}
+.hidden {
+    display: none;
+}
 
 .highlighted-title {
     display: inline-block;
@@ -46,9 +52,9 @@ body {
     padding: 2px 0px 2px 0px;
 }
 
-#characters {
+#characters1,  #characters2{
     grid-area: 1 / 1 / 2 / 2;
-    display: grid;
+    /* display: grid; */
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
@@ -57,6 +63,7 @@ body {
     align-content: start;
     margin-top: 5px;
 }
+
 
 #right-side { 
     grid-area: 1 / 2 / 2 / 3;  
