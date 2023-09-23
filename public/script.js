@@ -56,27 +56,34 @@ function showResultsOfTheOtherPlayer() {
       otherPlayerBoard.style.display = 'grid';
   }
 
+ function animationToShowCharacters() {
+  CharactersForFirstUser.forEach((container, index) => {
+   
+    container.style.animationDelay = `${0.05 * index}s`; 
+    container.classList.add("fade-in"); 
+  });
+
+  CharactersForSecondUser.forEach((container, index) => {
+ 
+    container.style.animationDelay = `${0.05 * index}s`; 
+    container.classList.add("fade-in"); 
+  });
+ } 
+
 function showCharactersAccordingToPlayer() {
   if (isFirstUserPlaying) {
     visibilitYOfCharactersOfSecondPlayer.classList.add("hidden");
     visibilitYOfCharactersOfFirstPlayer.classList.remove("hidden");
     visibilitYOfCharactersOfFirstPlayer.classList.add("show");
-
-    CharactersForSecondUser.forEach((container) => {
-      container.style.animationDelay = "0.2s"; 
-      container.classList.add("fade-in"); 
-    });
+    animationToShowCharacters();
   }
   if (!isFirstUserPlaying) {
     visibilitYOfCharactersOfFirstPlayer.classList.add("hidden");
     visibilitYOfCharactersOfSecondPlayer.classList.remove("hidden");
     visibilitYOfCharactersOfSecondPlayer.classList.add("show");
-
-    CharactersForFirstUser.forEach((container) => {
-      container.style.animationDelay = "0.2s"; 
-      container.classList.add("fade-in"); 
-    });
+    animationToShowCharacters();
   }
+  
   yourSelectedCharacterContainer.style.display = "none";
 }
 
