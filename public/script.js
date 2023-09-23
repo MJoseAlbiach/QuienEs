@@ -26,17 +26,58 @@ function showPopup(popupId, closePopupButtonId) {
   }
 }
 
+function showResultsOfTheOtherPlayer() { 
+  const otherPlayerBoard = document.getElementById('other-player-board');
+
+  if (isFirstUserPlaying){
+    const characters2 = document.getElementById('characters2');
+    if (characters2 && otherPlayerBoard) {  
+        clonedCharacters = characters2.cloneNode(true);
+        const characterNames = clonedCharacters.querySelectorAll('.highlighted-name');
+
+        characterNames.forEach(name => {
+          name.remove();
+        });
+      } 
+    }
+    if (!isFirstUserPlaying){
+      const characters1 = document.getElementById('characters1');
+
+      if (characters1 && otherPlayerBoard) {       
+          clonedCharacters = characters1.cloneNode(true);   
+          const characterNames = clonedCharacters.querySelectorAll('.highlighted-name');
+
+          characterNames.forEach(name => {
+              name.remove();
+          });
+        } 
+      }    
+      otherPlayerBoard.innerHTML = clonedCharacters.innerHTML;
+      otherPlayerBoard.style.display = 'grid';
+  }
+
 function showCharactersAccordingToPlayer() {
   if (isFirstUserPlaying) {
     visibilitYOfCharactersOfSecondPlayer.classList.add("hidden");
     visibilitYOfCharactersOfFirstPlayer.classList.remove("hidden");
-    visibilitYOfCharactersOfFirstPlayer.classList.add("show");   
+    visibilitYOfCharactersOfFirstPlayer.classList.add("show");
+
+    CharactersForSecondUser.forEach((container) => {
+      container.style.animationDelay = "0.2s"; 
+      container.classList.add("fade-in"); 
+    });
   }
   if (!isFirstUserPlaying) {
     visibilitYOfCharactersOfFirstPlayer.classList.add("hidden");
     visibilitYOfCharactersOfSecondPlayer.classList.remove("hidden");
     visibilitYOfCharactersOfSecondPlayer.classList.add("show");
+
+    CharactersForFirstUser.forEach((container) => {
+      container.style.animationDelay = "0.2s"; 
+      container.classList.add("fade-in"); 
+    });
   }
+  yourSelectedCharacterContainer.style.display = "none";
 }
 
 function compareTheBetOnTheHiddenCharacter(playerCharacterSelected, IBetThisIsTheHiddenCharacter) {
@@ -58,8 +99,13 @@ function handleCharacterClick(event) {
     if (!isFirstUserPlaying)  {
       secondUserClassesCharacterSelected = allOfClassesOfCharacter;
       secondUserCharacterSelected = allOfClassesOfCharacter[2];
-      updateSelectedCharacter();
+      if (firstUserCharacterSelected === secondUserCharacterSelected) {
+        showWinnerPopup();
+      } else {
+         updateSelectedCharacter();
       showGameStartFirstPopup();
+      }
+     
     }
 
     isFirstUserPlaying = !isFirstUserPlaying;
@@ -121,7 +167,24 @@ function eventClicForAllOfCcharacters(){
     });
   }
 }
- 
+
+function showAndHideMyCharacter() {
+  const myCharacterShowButton = document.getElementById("my-character-selected-btn");
+  const myCharacterSelectedContainer = document.getElementById("your-selected-character-container");
+
+  myCharacterShowButton.addEventListener("click", () =>{
+    if(myCharacterSelectedContainer.style.display === "flex") {
+      myCharacterShowButton.style.animationDelay = ""; 
+      myCharacterShowButton.style.animationPlayState = "reverse"; 
+
+      setTimeout(() => {
+        myCharacterSelectedContainer.style.display = "none";
+    }, 100); 
+    }
+    myCharacterSelectedContainer.style.display = "flex";
+  });
+}
+
 function showAndHideQuestions() {
   const questionsBtn = document.getElementById("questions-btn");
   const allOfQuestions = document.getElementById("questions-container");
@@ -144,6 +207,7 @@ function showAndHideQuestions() {
 function showWelcomeOfFirstPlayerPopup() {
   document.addEventListener("DOMContentLoaded", () => {  
     showPopup("first-player-popup", "close-first-player-popup");
+    showResultsOfTheOtherPlayer();
   });
 }
 
@@ -153,6 +217,7 @@ function showWelcomeOfSecondPlayerPopup() {
   const closeSecondPlayerPopupButton = document.getElementById("close-second-player-popup");
   
   closeSecondPlayerPopupButton.addEventListener("click", () => {
+    showResultsOfTheOtherPlayer();
     showCharactersAccordingToPlayer();   
     eventClicForAllOfCcharacters();
     yourSelectedCharacterContainer.classList.remove("colorOfBackgroundsOfFirstPlayer");
@@ -257,7 +322,6 @@ function comparisonOfClassesToDiscardCharactersAccordingEachQuestion() {
 
       targetCharactersList.forEach(characterInfo => {
           const characterClasses = Array.from(characterInfo.classList);
-          const characterName = characterInfo.querySelector(".highlighted-name").textContent;
 
           if (otherPlayerHiddenCharacter.includes(buttonFirstClass)) {
             if (!characterClasses.includes(buttonFirstClass)) {
@@ -318,8 +382,8 @@ function showGameStartFirstPopup() {
 
 function changeToNextPlayer() { 
   isFirstUserPlaying = !isFirstUserPlaying;
-
-  showCharactersAccordingToPlayer();     
+  showResultsOfTheOtherPlayer();
+  showCharactersAccordingToPlayer();  
   updateSelectedCharacter();
   updateHiddenCharacter();
   eventClicForAllOfCcharacters();
@@ -357,3 +421,4 @@ updateSelectedCharacter();
 eventClicForAllOfCcharacters();
 showAndHideQuestions();
 showAndHideGameRules();
+showAndHideMyCharacter();

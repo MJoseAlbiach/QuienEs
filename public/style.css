@@ -54,7 +54,6 @@ body {
 
 #characters1,  #characters2{
     grid-area: 1 / 1 / 2 / 2;
-    /* display: grid; */
     grid-template-columns: repeat(6, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
@@ -70,12 +69,16 @@ body {
     align-items: start;    
 }
 
+#other-player-board {
+    display: grid;
+}
+
 #characters-selected-container{
     margin-top: 20px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    animation: fade-in 1s forwards;
+     animation: fade-in 1s forwards; 
 }
 
 #your-selected-character-container {
@@ -85,7 +88,8 @@ body {
     justify-content: center;
     text-align: center;
     width: 80%;
-    align-self: center;   
+    align-self: center;  
+    display: none; 
 }
 
 .colors-background-character-selected-container-of-first-player{
@@ -153,6 +157,14 @@ body {
     background-color: #dde8dd75; 
 }
 
+#my-character-selected-btn {
+    background-color:blueviolet;
+    padding: 3% 7% 3% 7%;
+    font-size: x-large; 
+    margin: 10% auto 5% auto; 
+    animation: fade-in 3s forwards;
+}
+
 #game-rules-btn {
     background-color: rgb(6, 175, 187);  
     padding: 4% 10% 5% 10%;
@@ -202,7 +214,7 @@ body {
     padding: 3% 7% 3% 7%;
     font-size: x-large;
     margin: 14% auto 4% auto;
-    animation: fade-in 3s forwards;
+    
 }
 
 .color-container {
@@ -210,8 +222,8 @@ body {
     display:grid;
     align-items: end;
     align-self: start;
-    animation: slide-in 1s forwards;
     opacity: 0;
+    animation: fade-in 1s forwards;  
 }
 
 .character {
